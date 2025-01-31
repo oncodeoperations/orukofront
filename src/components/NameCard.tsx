@@ -2,7 +2,7 @@ import { Volume2 } from "lucide-react";
 
 interface NameInfo {
   meaning: string;
-  heritage: string;
+  heritage: string | { tribe: string; region: string };
   pronunciation: string;
   significance: string;
   variations: string[];
@@ -18,7 +18,9 @@ export function NameCard({ nameInfo }: NameCardProps) {
       
       {/* Heritage / Language Label */}
       <span className="uppercase text-sm tracking-widest text-gray-500 mb-2">
-        {nameInfo.heritage}
+        {typeof nameInfo.heritage === 'string'
+          ? nameInfo.heritage
+          : `${nameInfo.heritage.tribe}, ${nameInfo.heritage.region}`}
       </span>
 
       {/* Dotted Line */}
