@@ -16,9 +16,9 @@ const api = axios.create({
   },
 });
 
-export async function translateName(name: string): Promise<NameTranslation> {
+export async function getHeritageSuggestions(name: string): Promise<string[]> {
   try {
-    const response = await api.post<NameTranslation>('/translate', { name });
+    const response = await api.post<string[]>('/translate/heritage-suggestions', { name });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -26,8 +26,26 @@ export async function translateName(name: string): Promise<NameTranslation> {
         throw new Error('Rate limit exceeded. Please try again later.');
       }
       throw new Error(
-        error.response?.data?.message || 
-        'Failed to translate name. Please try again.'
+        error.response?.data?.message ||
+          'Failed to get heritage suggestions. Please try again.'
+      );
+    }
+    throw error;
+  }
+}
+
+export async function translateNameWithHeritage(name: string, heritage: string): Promise<NameTranslation> {
+  try {
+    const response = await api.post<NameTranslation>('/translate/translate-with-heritage', { name, heritage });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 429) {
+        throw new Error('Rate limit exceeded. Please try again later.');
+      }
+      throw new Error(
+        error.response?.data?.message ||
+          'Failed to translate name with heritage. Please try again.'
       );
     }
     throw error;
