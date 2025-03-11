@@ -4,7 +4,7 @@ import { validateName, commonNigerianNames } from '../lib/utils';
 import { getHeritageSuggestions } from '../lib/api';
 
 interface NameInputProps {
-  onSubmit: (name: string, heritage?: string) => void;
+  onSubmit: (info: { inputName: string; heritage?: string }) => void;
   isLoading: boolean;
 }
 
@@ -52,12 +52,12 @@ export function NameInput({ onSubmit, isLoading }: NameInputProps) {
         setIsHeritageLoading(false);
       }
     }
-    // No further action when suggestions are already displayed.
+    // Do not call onSubmit here; wait for the user to select a heritage suggestion.
   };
 
   // When a heritage bubble is clicked, immediately trigger onSubmit.
   const handleHeritageClick = (heritage: string) => {
-    onSubmit(name, heritage);
+    onSubmit({ inputName: name, heritage });
     setHeritageSuggestions([]);
   };
 
