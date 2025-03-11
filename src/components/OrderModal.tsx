@@ -8,7 +8,7 @@ interface OrderModalProps {
 export function OrderModal({ onClose, images }: OrderModalProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Auto-slide carousel every 3 seconds with fade transition
+  // Auto-slide carousel every 3 seconds with fade transitions
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
