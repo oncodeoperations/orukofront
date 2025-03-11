@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Search } from 'lucide-react';
 import { validateName, commonNigerianNames } from '../lib/utils';
 import { getHeritageSuggestions } from '../lib/api';
 
@@ -12,7 +11,6 @@ export function NameInput({ onSubmit, isLoading }: NameInputProps) {
   const [name, setName] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [error, setError] = useState('');
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [heritageSuggestions, setHeritageSuggestions] = useState<string[]>([]);
   const [isHeritageLoading, setIsHeritageLoading] = useState(false);
 
@@ -65,27 +63,14 @@ export function NameInput({ onSubmit, isLoading }: NameInputProps) {
     <div className="w-full max-w-md mx-auto mt-8">
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative flex justify-center">
-          {isSearchVisible ? (
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Search for a name..."
-              className="w-full px-4 py-3 pr-10 text-lg rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              disabled={isLoading}
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={() => setIsSearchVisible(true)}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-400"
-            >
-              <Search className="text-white h-6 w-6" />
-            </button>
-          )}
-          {isSearchVisible && (
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-          )}
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Search for a name..."
+            className="w-full px-4 py-3 pr-10 text-lg rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            disabled={isLoading}
+          />
         </div>
 
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -133,22 +118,20 @@ export function NameInput({ onSubmit, isLoading }: NameInputProps) {
           </div>
         )}
 
-        {/* Only render the "Translate Name" button when the search bar is visible */}
-        {isSearchVisible && (
-          <button
-            type="submit"
-            disabled={isLoading || !name}
-            className="mt-4 w-full bg-[#5f554b] text-white py-3 rounded-full font-semibold hover:bg-[#d4cbbf] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? (
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-              </div>
-            ) : (
-              'Translate Name'
-            )}
-          </button>
-        )}
+        {/* Always render the "Translate Name" button */}
+        <button
+          type="submit"
+          disabled={isLoading || !name}
+          className="mt-4 w-full bg-[#5f554b] text-white py-3 rounded-full font-semibold hover:bg-[#d4cbbf] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+            </div>
+          ) : (
+            'Translate Name'
+          )}
+        </button>
       </form>
     </div>
   );
