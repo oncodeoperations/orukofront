@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Volume2 /*, Download*/ } from "lucide-react";
+import { Volume2 } from "lucide-react";
 
 interface NameInfo {
   inputName: string;
@@ -27,7 +27,18 @@ export function NameCard({ nameInfo }: NameCardProps) {
   const textColor =
     selectedColor === "#5F554B" || selectedColor === "#000000" ? "#E4DED0" : "#5F554B";
 
-  // Removed captureWithWatermark, share and download functions since they were unused
+  // Helper functions to format strings (capitalize first letter only)
+  const formatText = (text: string) => {
+    if(!text) return "";
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  };
+
+  const formattedHeritage =
+    typeof nameInfo.heritage === "string"
+      ? formatText(nameInfo.heritage)
+      : `${formatText(nameInfo.heritage.tribe)}, ${formatText(nameInfo.heritage.region)}`;
+
+  const formattedMeaning = formatText(nameInfo.meaning);
 
   return (
     <>
@@ -36,10 +47,8 @@ export function NameCard({ nameInfo }: NameCardProps) {
         className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
         style={{ backgroundColor: selectedColor, color: textColor }}
       >
-        <span className="block uppercase text-xs sm:text-sm tracking-widest mb-2 text-center">
-          {typeof nameInfo.heritage === "string"
-            ? nameInfo.heritage
-            : `${nameInfo.heritage.tribe}, ${nameInfo.heritage.region}`}
+        <span className="block text-xs sm:text-sm tracking-widest mb-2 text-center">
+          {formattedHeritage}
         </span>
         <div className="tracking-widest text-center">
           • • • • • • • • • • •
@@ -47,15 +56,15 @@ export function NameCard({ nameInfo }: NameCardProps) {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif mt-4 text-center px-2 sm:px-6">
           {nameInfo.inputName}
         </h1>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-lg sm:text-xl mt-4">
-          <p className="italic text-center">/ {nameInfo.pronunciation} /</p>
+        <div className="flex items-center justify-center gap-2 text-lg sm:text-xl mt-4">
+          <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
           <button className="hover:opacity-80">
             <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
-        <span className="block italic uppercase text-xs sm:text-sm tracking-widest mt-4 text-center">
-       "{nameInfo.meaning}"
-</span>
+        <span className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center">
+          "{formattedMeaning}"
+        </span>
         <div className="tracking-widest text-center mt-4">
           • • • • • • • • • • •
         </div>
