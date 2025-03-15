@@ -25,11 +25,12 @@ export function NameCard({ nameInfo }: NameCardProps) {
   const [selectedColor, setSelectedColor] = useState<string>("#FFFFFF");
   const cardRef = useRef<HTMLDivElement>(null);
   const textColor =
-    selectedColor === "#5F554B" || selectedColor === "#000000" ? "#E4DED0" : "#5F554B";
+    selectedColor === "#5F554B" || selectedColor === "#000000"
+      ? "#E4DED0"
+      : "#5F554B";
 
-  // Helper functions to format strings (capitalize first letter only)
   const formatText = (text: string) => {
-    if(!text) return "";
+    if (!text) return "";
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   };
 
@@ -53,7 +54,10 @@ export function NameCard({ nameInfo }: NameCardProps) {
         <div className="tracking-widest text-center">
           • • • • • • • • • • •
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif mt-4 text-center px-2 sm:px-6">
+        <h1
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 text-center px-2 sm:px-6"
+          style={{ fontFamily: "Yeseva One" }}
+        >
           {nameInfo.inputName}
         </h1>
         <div className="flex items-center justify-center gap-2 text-lg sm:text-xl mt-4">
@@ -62,7 +66,10 @@ export function NameCard({ nameInfo }: NameCardProps) {
             <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
-        <span className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center">
+        <span
+          className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center"
+          style={{ fontFamily: "Bodoni FLF" }}
+        >
           "{formattedMeaning}"
         </span>
         <div className="tracking-widest text-center mt-4">
@@ -79,32 +86,14 @@ export function NameCard({ nameInfo }: NameCardProps) {
               style={{
                 backgroundColor: option.value,
                 border:
-                  selectedColor === option.value ? "3px solid #3e322e" : "1px solid #aaa",
+                  selectedColor === option.value
+                    ? "3px solid #3e322e"
+                    : "1px solid #aaa",
               }}
               className="w-8 h-8 rounded-full focus:outline-none"
             />
           ))}
         </div>
-        {/*
-        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-          <button
-            // Share button removed
-            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-md shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
-            style={{ backgroundColor: "#EDE3F5", color: "#4A3B35", minWidth: "130px" }}
-          >
-            <Share2 className="h-5 w-5" />
-            <span className="text-sm">Share</span>
-          </button>
-          <button
-            // Buy artwork button removed
-            className="flex-1 flex items-center justify-center gap-2 py-2 rounded-md shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
-            style={{ backgroundColor: "#EDE3F5", color: "#4A3B35", minWidth: "130px" }}
-          >
-            <Mountain className="h-5 w-5" />
-            <span className="text-sm">Buy artwork</span>
-          </button>
-        </div>
-        */}
       </div>
       <div className="mt-4 text-center px-2 sm:px-6">
         <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
