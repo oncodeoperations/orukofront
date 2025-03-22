@@ -47,7 +47,14 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   const handleDownload = () => {
     if (!cardRef.current) return;
-    toPng(cardRef.current, { quality: 1, pixelRatio: 2 })
+  
+    toPng(cardRef.current, {
+      quality: 1,
+      pixelRatio: 2,
+      backgroundColor: selectedColor, // Ensures correct background color
+      width: cardRef.current.offsetWidth, // Explicit width
+      height: cardRef.current.offsetHeight, // Explicit height
+    })
       .then((dataUrl) => {
         const link = document.createElement("a");
         link.download = `${nameInfo.inputName}-card.png`;
@@ -58,7 +65,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         console.error("Download error:", error);
       });
   };
-
+  
   return (
     <>
       {/* Card container (captured by toPng) */}
