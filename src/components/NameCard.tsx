@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from "react"; 
 import { Volume2 } from "lucide-react";
 import { FaDownload } from "react-icons/fa";
-import { toPng } from "html-to-image";
+import { toBlob } from "html-to-image";
 
 interface NameInfo {
   inputName: string;
@@ -44,18 +44,16 @@ export function NameCard({ nameInfo }: NameCardProps) {
     if (!cardRef.current) return;
 
     setTimeout(() => {
-      toPng(cardRef.current as HTMLElement, {
-        quality: 1,
-        pixelRatio: 2,
-        backgroundColor: selectedColor,
-        width: 400,
-        height: 400,
+      toBlob(cardRef.current as HTMLElement, {
+        pixelRatio: 3, // High pixel ratio for better quality
       })
-        .then((dataUrl) => {
-          const link = document.createElement("a");
-          link.download = `${nameInfo.inputName}-card.png`;
-          link.href = dataUrl;
-          link.click();
+        .then((blob) => {
+          if (blob) {
+            const link = document.createElement("a");
+            link.download = `${nameInfo.inputName}-card.png`;
+            link.href = URL.createObjectURL(blob);
+            link.click();
+          }
         })
         .catch((error) => console.error("Download error:", error));
     }, 500);
