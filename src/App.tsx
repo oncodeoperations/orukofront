@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { NameInput } from "./components/NameInput";
 import { NameCard } from "./components/NameCard";
 // Commented out since OrderModal is not needed
@@ -114,6 +115,8 @@ function App() {
         <OrderModal onClose={() => setModalOpen(false)} images={placeholderImages} />
       )}
      */}
+      {/* Add Vercel Analytics at the bottom */}
+      <Analytics />
     </div>
   );
 }
