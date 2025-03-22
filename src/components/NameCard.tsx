@@ -59,41 +59,40 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Card container to be captured */}
-      <div ref={cardRef}>
-        <div
-          className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
-          style={{ backgroundColor: selectedColor, color: textColor }}
-        >
-          <span className="block text-xs sm:text-sm tracking-widest mb-2 text-center">
-            {formattedHeritage}
-          </span>
-          <div className="tracking-widest text-center">
-            • • • • • • • • • • •
-          </div>
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 text-center px-2 sm:px-6"
-            style={{ fontFamily: "Yeseva One" }}
-          >
-            {nameInfo.inputName}
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-lg sm:text-xl mt-4">
-            <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
-            <button className="hover:opacity-80">
-              <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
-          </div>
-          <span
-            className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center"
-            style={{ fontFamily: "Bodoni FLF" }}
-          >
-            "{formattedMeaning}"
-          </span>
-          <div className="tracking-widest text-center mt-4">
-            • • • • • • • • • • •
-          </div>
-          <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
+      {/* Card container (captured with original size) */}
+      <div
+        ref={cardRef}
+        className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
+        style={{ backgroundColor: selectedColor, color: textColor }}
+      >
+        <span className="block text-xs sm:text-sm tracking-widest mb-2 text-center">
+          {formattedHeritage}
+        </span>
+        <div className="tracking-widest text-center">
+          • • • • • • • • • • •
         </div>
+        <h1
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 text-center px-2 sm:px-6"
+          style={{ fontFamily: "Yeseva One" }}
+        >
+          {nameInfo.inputName}
+        </h1>
+        <div className="flex items-center justify-center gap-2 text-lg sm:text-xl mt-4">
+          <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
+          <button className="hover:opacity-80">
+            <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
+          </button>
+        </div>
+        <span
+          className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center"
+          style={{ fontFamily: "Bodoni FLF" }}
+        >
+          "{formattedMeaning}"
+        </span>
+        <div className="tracking-widest text-center mt-4">
+          • • • • • • • • • • •
+        </div>
+        <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
       </div>
 
       {/* Additional card info (not captured in download) */}
@@ -101,7 +100,8 @@ export function NameCard({ nameInfo }: NameCardProps) {
         <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
         {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
           <div className="mt-4 text-sm sm:text-base">
-            <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
+            <span className="font-semibold">Variations:</span>{" "}
+            {nameInfo.variations.join(", ")}
           </div>
         )}
       </div>
