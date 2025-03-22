@@ -25,6 +25,7 @@ const colorOptions: { label: string; value: string }[] = [
 
 export function NameCard({ nameInfo }: NameCardProps) {
   const [selectedColor, setSelectedColor] = useState<string>("#FFFFFF");
+  // Here, cardRef is our reference (or "ref") to the card element we want to capture.
   const cardRef = useRef<HTMLDivElement>(null);
   const textColor =
     selectedColor === "#5F554B" || selectedColor === "#000000"
@@ -59,7 +60,10 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Card container (captured with original size) */}
+      {/* 
+        The card container below holds everything that should appear in the downloaded image.
+        The "ref" (cardRef) lets us target this element for capture.
+      */}
       <div
         ref={cardRef}
         className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
@@ -95,7 +99,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
       </div>
 
-      {/* Additional card info (not captured in download) */}
+      {/* Additional card info (stays on page but is not captured) */}
       <div className="mt-4 text-center px-2 sm:px-6">
         <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
         {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
