@@ -25,7 +25,7 @@ const colorOptions: { label: string; value: string }[] = [
 
 export function NameCard({ nameInfo }: NameCardProps) {
   const [selectedColor, setSelectedColor] = useState<string>("#FFFFFF");
-  // Here, cardRef is our reference (or "ref") to the card element we want to capture.
+  // cardRef points to the element we want to capture
   const cardRef = useRef<HTMLDivElement>(null);
   const textColor =
     selectedColor === "#5F554B" || selectedColor === "#000000"
@@ -60,14 +60,17 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* 
-        The card container below holds everything that should appear in the downloaded image.
-        The "ref" (cardRef) lets us target this element for capture.
-      */}
+      {/* Card container to be captured (download will include only this part) */}
       <div
         ref={cardRef}
-        className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
-        style={{ backgroundColor: selectedColor, color: textColor }}
+        className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 font-heritage"
+        style={{
+          backgroundColor: selectedColor,
+          color: textColor,
+          // Explicit dimensions ensure the capture uses the proper size.
+          minWidth: "448px",
+          minHeight: "400px"
+        }}
       >
         <span className="block text-xs sm:text-sm tracking-widest mb-2 text-center">
           {formattedHeritage}
@@ -99,13 +102,12 @@ export function NameCard({ nameInfo }: NameCardProps) {
         <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
       </div>
 
-      {/* Additional card info (stays on page but is not captured) */}
+      {/* Additional card info (not captured in download) */}
       <div className="mt-4 text-center px-2 sm:px-6">
         <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
         {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
           <div className="mt-4 text-sm sm:text-base">
-            <span className="font-semibold">Variations:</span>{" "}
-            {nameInfo.variations.join(", ")}
+            <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
           </div>
         )}
       </div>
