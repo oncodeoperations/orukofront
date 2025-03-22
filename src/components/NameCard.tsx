@@ -61,24 +61,17 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Centered wrapper for correct dimensions */}
       <div className="flex justify-center items-center">
         <div ref={cardRef} className="p-5">
           <div
-            className="w-[400px] h-[600px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-12 px-8"
-            style={{
-              backgroundColor: selectedColor,
-              color: textColor,
-            }}
+            className="w-[600px] h-[600px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-12 px-8"
+            style={{ backgroundColor: selectedColor, color: textColor }}
           >
             <span className="block text-sm tracking-widest mb-2 text-center">
               {formattedHeritage}
             </span>
             <div className="tracking-widest text-center">• • • • • • • • • • •</div>
-            <h1
-              className="text-5xl font-bold mt-4 text-center"
-              style={{ fontFamily: "Yeseva One" }}
-            >
+            <h1 className="text-5xl font-bold mt-4 text-center" style={{ fontFamily: "Yeseva One" }}>
               {nameInfo.inputName}
             </h1>
             <div className="flex items-center justify-center gap-2 text-xl mt-4">
@@ -87,10 +80,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
                 <Volume2 className="h-6 w-6" />
               </button>
             </div>
-            <span
-              className="block italic text-sm tracking-widest mt-4 text-center"
-              style={{ fontFamily: "Bodoni FLF" }}
-            >
+            <span className="block italic text-sm tracking-widest mt-4 text-center" style={{ fontFamily: "Bodoni FLF" }}>
               "{formattedMeaning}"
             </span>
             <div className="tracking-widest text-center mt-4">• • • • • • • • • • •</div>
@@ -99,7 +89,6 @@ export function NameCard({ nameInfo }: NameCardProps) {
         </div>
       </div>
 
-      {/* Additional Information */}
       <div className="mt-4 text-center px-2 sm:px-6">
         <p className="italic text-lg">{nameInfo.significance}</p>
         {nameInfo.variations.length > 0 && (
@@ -109,7 +98,6 @@ export function NameCard({ nameInfo }: NameCardProps) {
         )}
       </div>
 
-      {/* Color Picker */}
       <div className="mt-6 flex flex-col items-center gap-6">
         <div className="flex items-center justify-center gap-4">
           {colorOptions.map((option) => (
@@ -126,7 +114,6 @@ export function NameCard({ nameInfo }: NameCardProps) {
         </div>
       </div>
 
-      {/* Download Button */}
       <div className="mt-6 flex justify-center">
         <button
           onClick={handleDownload}
