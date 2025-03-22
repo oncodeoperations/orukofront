@@ -48,12 +48,18 @@ export function NameCard({ nameInfo }: NameCardProps) {
   const handleDownload = () => {
     if (!cardRef.current) return;
   
-    toPng(cardRef.current, {
+    const node = cardRef.current;
+  
+    toPng(node, {
       quality: 1,
       pixelRatio: 2,
-      backgroundColor: selectedColor, // Ensures correct background color
-      width: cardRef.current.offsetWidth, // Explicit width
-      height: cardRef.current.offsetHeight, // Explicit height
+      backgroundColor: selectedColor || "#ffffff", // Ensure background is set
+      width: node.getBoundingClientRect().width,  // Ensure correct width
+      height: node.getBoundingClientRect().height, // Ensure correct height
+      style: {
+        display: "block", // Prevent hidden elements
+        backgroundColor: selectedColor || "#ffffff", // Force a solid background
+      },
     })
       .then((dataUrl) => {
         const link = document.createElement("a");
