@@ -48,8 +48,8 @@ export function NameCard({ nameInfo }: NameCardProps) {
         quality: 1,
         pixelRatio: 2,
         backgroundColor: selectedColor,
-        width: 300,
-        height: 300,
+        width: 400,
+        height: 400,
       })
         .then((dataUrl) => {
           const link = document.createElement("a");
@@ -67,7 +67,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
       <div className="flex justify-center items-center">
         <div ref={cardRef} className="p-5">
           <div
-            className="w-[300px] h-[300px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-8 px-6"
+            className="w-[400px] h-[400px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-8 px-6"
             style={{
               backgroundColor: selectedColor,
               color: textColor,
