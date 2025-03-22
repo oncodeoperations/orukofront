@@ -61,47 +61,49 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Wrapper div to prevent cropping */}
-      <div ref={cardRef} style={{ position: "relative", padding: "20px" }}>
-        <div
-          className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 font-heritage"
-          style={{
-            backgroundColor: selectedColor,
-            color: textColor,
-          }}
-        >
-          <span className="block text-xs sm:text-sm tracking-widest mb-2 text-center">
-            {formattedHeritage}
-          </span>
-          <div className="tracking-widest text-center">• • • • • • • • • • •</div>
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 text-center px-2 sm:px-6"
-            style={{ fontFamily: "Yeseva One" }}
+      {/* Centered wrapper for correct dimensions */}
+      <div className="flex justify-center items-center">
+        <div ref={cardRef} className="p-5">
+          <div
+            className="w-[400px] h-[600px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-12 px-8"
+            style={{
+              backgroundColor: selectedColor,
+              color: textColor,
+            }}
           >
-            {nameInfo.inputName}
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-lg sm:text-xl mt-4">
-            <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
-            <button className="hover:opacity-80">
-              <Volume2 className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
+            <span className="block text-sm tracking-widest mb-2 text-center">
+              {formattedHeritage}
+            </span>
+            <div className="tracking-widest text-center">• • • • • • • • • • •</div>
+            <h1
+              className="text-5xl font-bold mt-4 text-center"
+              style={{ fontFamily: "Yeseva One" }}
+            >
+              {nameInfo.inputName}
+            </h1>
+            <div className="flex items-center justify-center gap-2 text-xl mt-4">
+              <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
+              <button className="hover:opacity-80">
+                <Volume2 className="h-6 w-6" />
+              </button>
+            </div>
+            <span
+              className="block italic text-sm tracking-widest mt-4 text-center"
+              style={{ fontFamily: "Bodoni FLF" }}
+            >
+              "{formattedMeaning}"
+            </span>
+            <div className="tracking-widest text-center mt-4">• • • • • • • • • • •</div>
+            <div className="mt-4 text-sm text-center">@oruko.mi</div>
           </div>
-          <span
-            className="block italic text-xs sm:text-sm tracking-widest mt-4 text-center"
-            style={{ fontFamily: "Bodoni FLF" }}
-          >
-            "{formattedMeaning}"
-          </span>
-          <div className="tracking-widest text-center mt-4">• • • • • • • • • • •</div>
-          <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
         </div>
       </div>
 
       {/* Additional Information */}
       <div className="mt-4 text-center px-2 sm:px-6">
-        <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
+        <p className="italic text-lg">{nameInfo.significance}</p>
         {nameInfo.variations.length > 0 && (
-          <div className="mt-4 text-sm sm:text-base">
+          <div className="mt-4 text-base">
             <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
           </div>
         )}
