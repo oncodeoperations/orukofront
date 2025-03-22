@@ -93,16 +93,17 @@ export function NameCard({ nameInfo }: NameCardProps) {
             • • • • • • • • • • •
           </div>
           <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
-          <div className="mt-4 text-center px-2 sm:px-6">
-            <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
-            {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
-              <div className="mt-4 text-sm sm:text-base">
-                <span className="font-semibold">Variations:</span>{" "}
-                {nameInfo.variations.join(", ")}
-              </div>
-            )}
-          </div>
         </div>
+      </div>
+
+      {/* Additional card info (not captured in download) */}
+      <div className="mt-4 text-center px-2 sm:px-6">
+        <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
+        {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
+          <div className="mt-4 text-sm sm:text-base">
+            <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
+          </div>
+        )}
       </div>
 
       {/* Controls (not captured in download) */}
