@@ -1,5 +1,8 @@
 import { useState, useRef } from "react";
 import { Volume2 } from "lucide-react";
+import { Analytics } from "@vercel/analytics/react";
+import { FaDownload } from "react-icons/fa";
+import { toPng } from "html-to-image";
 
 interface NameInfo {
   inputName: string;
@@ -41,8 +44,25 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   const formattedMeaning = formatText(nameInfo.meaning);
 
+  const handleDownload = () => {
+    if (!cardRef.current) return;
+    toPng(cardRef.current, { quality: 1, pixelRatio: 2 })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `${nameInfo.inputName}-card.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.error("oops, something went wrong!", error);
+      });
+  };
+
   return (
     <>
+      {/* Analytics Component */}
+      <Analytics />
+
       <div
         ref={cardRef}
         className="w-full max-w-md mx-auto rounded-xl shadow-lg border border-[#e8dfd8] py-12 sm:py-14 md:py-20 px-4 sm:px-6 md:px-8 bg-opacity-95 font-heritage"
@@ -77,6 +97,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         </div>
         <div className="mt-4 text-xs sm:text-sm text-center">@oruko.mi</div>
       </div>
+
       <div className="mt-6 flex flex-col items-center gap-6">
         <div className="flex items-center justify-center gap-4">
           {colorOptions.map((option) => (
@@ -95,6 +116,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
           ))}
         </div>
       </div>
+
       <div className="mt-4 text-center px-2 sm:px-6">
         <p className="italic text-base sm:text-lg">{nameInfo.significance}</p>
         {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
@@ -102,6 +124,17 @@ export function NameCard({ nameInfo }: NameCardProps) {
             <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
           </div>
         )}
+      </div>
+
+      {/* Centralized Download Button */}
+      <div className="mt-6 flex justify-center">
+        <button
+          onClick={handleDownload}
+          className="flex items-center space-x-2 px-6 py-3 bg-[#EAE2F8] text-[#6B46C1] font-medium rounded-2xl shadow-md hover:bg-[#DED2F4]"
+        >
+          <FaDownload />
+          <span>Download</span>
+        </button>
       </div>
     </>
   );
