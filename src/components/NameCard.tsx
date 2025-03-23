@@ -1,3 +1,4 @@
+//// filepath: /C:/Users/Deen/Desktop/orukofront/src/components/NameCard.tsx
 import { useState, useRef } from "react";
 import { Volume2 } from "lucide-react";
 import { FaDownload } from "react-icons/fa";
@@ -44,7 +45,12 @@ export function NameCard({ nameInfo }: NameCardProps) {
   const handleDownload = () => {
     if (!cardRef.current) return;
     setTimeout(() => {
-      toBlob(cardRef.current as HTMLElement, { pixelRatio: 3 })
+      // Non-null assertion (!) or cast to HTMLElement gets rid of TS error
+      toBlob(cardRef.current!, {
+        pixelRatio: 3,
+        width: 400,
+        height: 400,
+      })
         .then((blob) => {
           if (blob) {
             const link = document.createElement("a");
@@ -59,15 +65,13 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Center the card in the page */}
+      {/* Responsive card wrapper */}
       <div className="flex justify-center items-center px-4 sm:px-0">
-        {/* Card wrapper with fixed 400×400 size */}
+        {/* Let Tailwind handle responsiveness; no fixed width/height */}
         <div
           ref={cardRef}
-          className="mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center"
+          className="max-w-md w-full aspect-square rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center p-6"
           style={{
-            width: "400px",
-            height: "400px",
             backgroundColor: selectedColor,
             color: textColor,
           }}
@@ -94,7 +98,9 @@ export function NameCard({ nameInfo }: NameCardProps) {
           >
             "{formattedMeaning}"
           </span>
-          <div className="tracking-widest text-center mt-3">• • • • • • • • • • •</div>
+          <div className="tracking-widest text-center mt-3">
+            • • • • • • • • • • •
+          </div>
           <div className="mt-3 text-sm text-center">@oruko.mi</div>
         </div>
       </div>
@@ -110,7 +116,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         )}
       </div>
 
-      {/* Color Picker (not captured) */}
+      {/* Color Picker */}
       <div className="mt-6 flex flex-col items-center gap-6">
         <div className="flex items-center justify-center gap-4">
           {colorOptions.map((option) => (
@@ -130,7 +136,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         </div>
       </div>
 
-      {/* Download Button (not captured) */}
+      {/* Download Button */}
       <div className="mt-6 flex justify-center">
         <button
           onClick={handleDownload}
