@@ -45,7 +45,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
     setTimeout(() => {
       toBlob(cardRef.current as HTMLElement, {
-        pixelRatio: 3, // High pixel ratio for better quality
+        pixelRatio: 3,
       })
         .then((blob) => {
           if (blob) {
@@ -61,11 +61,11 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Centered wrapper for correct dimensions */}
-      <div className="flex justify-center items-center">
-        <div ref={cardRef} className="p-5">
+      {/* Responsive Centered Wrapper */}
+      <div className="flex justify-center items-center px-4 sm:px-0">
+        <div ref={cardRef} className="p-5 w-full max-w-[400px]">
           <div
-            className="w-[400px] h-[400px] mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-8 px-6"
+            className="w-full aspect-square mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-8 px-6"
             style={{
               backgroundColor: selectedColor,
               color: textColor,
@@ -100,7 +100,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
       </div>
 
       {/* Additional Information */}
-      <div className="mt-4 text-center px-2 sm:px-6">
+      <div className="mt-4 text-center px-4 sm:px-6">
         <p className="italic text-lg">{nameInfo.significance}</p>
         {nameInfo.variations.length > 0 && (
           <div className="mt-4 text-base">
