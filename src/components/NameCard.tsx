@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"; 
+import { useState, useRef } from "react";
 import { Volume2 } from "lucide-react";
 import { FaDownload } from "react-icons/fa";
 import { toBlob } from "html-to-image";
@@ -9,7 +9,7 @@ interface NameInfo {
   heritage: string | { tribe: string; region: string };
   pronunciation: string;
   significance: string;
-  variations: string[];
+  variations: string[] | null | undefined;
 }
 
 interface NameCardProps {
@@ -31,7 +31,8 @@ export function NameCard({ nameInfo }: NameCardProps) {
     ? "#E4DED0"
     : "#5F554B";
 
-  const formatText = (text: string) => text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  const formatText = (text: string) =>
+    text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
   const formattedHeritage =
     typeof nameInfo.heritage === "string"
@@ -42,11 +43,8 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   const handleDownload = () => {
     if (!cardRef.current) return;
-
     setTimeout(() => {
-      toBlob(cardRef.current as HTMLElement, {
-        pixelRatio: 3,
-      })
+      toBlob(cardRef.current as HTMLElement, { pixelRatio: 3 })
         .then((blob) => {
           if (blob) {
             const link = document.createElement("a");
@@ -61,55 +59,58 @@ export function NameCard({ nameInfo }: NameCardProps) {
 
   return (
     <>
-      {/* Responsive Centered Wrapper */}
+      {/* Center the card in the page */}
       <div className="flex justify-center items-center px-4 sm:px-0">
-        <div ref={cardRef} className="p-5 w-full max-w-[400px]">
-          <div
-            className="w-full aspect-square mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center py-8 px-6"
-            style={{
-              backgroundColor: selectedColor,
-              color: textColor,
-            }}
+        {/* Card wrapper with fixed 400×400 size */}
+        <div
+          ref={cardRef}
+          className="mx-auto rounded-xl shadow-lg border border-[#e8dfd8] flex flex-col items-center justify-center"
+          style={{
+            width: "400px",
+            height: "400px",
+            backgroundColor: selectedColor,
+            color: textColor,
+          }}
+        >
+          <span className="block text-sm tracking-widest mb-2 text-center">
+            {formattedHeritage}
+          </span>
+          <div className="tracking-widest text-center">• • • • • • • • • • •</div>
+          <h1
+            className="text-4xl font-bold mt-2 text-center"
+            style={{ fontFamily: "Yeseva One" }}
           >
-            <span className="block text-sm tracking-widest mb-2 text-center">
-              {formattedHeritage}
-            </span>
-            <div className="tracking-widest text-center">• • • • • • • • • • •</div>
-            <h1
-              className="text-4xl font-bold mt-2 text-center"
-              style={{ fontFamily: "Yeseva One" }}
-            >
-              {nameInfo.inputName}
-            </h1>
-            <div className="flex items-center justify-center gap-2 text-lg mt-3">
-              <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
-              <button className="hover:opacity-80">
-                <Volume2 className="h-5 w-5" />
-              </button>
-            </div>
-            <span
-              className="block italic text-sm tracking-widest mt-3 text-center"
-              style={{ fontFamily: "Bodoni FLF" }}
-            >
-              "{formattedMeaning}"
-            </span>
-            <div className="tracking-widest text-center mt-3">• • • • • • • • • • •</div>
-            <div className="mt-3 text-sm text-center">@oruko.mi</div>
+            {nameInfo.inputName}
+          </h1>
+          <div className="flex items-center justify-center gap-2 text-lg mt-3">
+            <p className="italic m-0">/ {nameInfo.pronunciation} /</p>
+            <button className="hover:opacity-80">
+              <Volume2 className="h-5 w-5" />
+            </button>
           </div>
+          <span
+            className="block italic text-sm tracking-widest mt-3 text-center"
+            style={{ fontFamily: "Bodoni FLF" }}
+          >
+            "{formattedMeaning}"
+          </span>
+          <div className="tracking-widest text-center mt-3">• • • • • • • • • • •</div>
+          <div className="mt-3 text-sm text-center">@oruko.mi</div>
         </div>
       </div>
 
-      {/* Additional Information */}
+      {/* Additional info (not captured) */}
       <div className="mt-4 text-center px-4 sm:px-6">
         <p className="italic text-lg">{nameInfo.significance}</p>
-        {nameInfo.variations.length > 0 && (
+        {Array.isArray(nameInfo.variations) && nameInfo.variations.length > 0 && (
           <div className="mt-4 text-base">
-            <span className="font-semibold">Variations:</span> {nameInfo.variations.join(", ")}
+            <span className="font-semibold">Variations:</span>{" "}
+            {nameInfo.variations.join(", ")}
           </div>
         )}
       </div>
 
-      {/* Color Picker */}
+      {/* Color Picker (not captured) */}
       <div className="mt-6 flex flex-col items-center gap-6">
         <div className="flex items-center justify-center gap-4">
           {colorOptions.map((option) => (
@@ -118,7 +119,10 @@ export function NameCard({ nameInfo }: NameCardProps) {
               onClick={() => setSelectedColor(option.value)}
               style={{
                 backgroundColor: option.value,
-                border: selectedColor === option.value ? "3px solid #3e322e" : "1px solid #aaa",
+                border:
+                  selectedColor === option.value
+                    ? "3px solid #3e322e"
+                    : "1px solid #aaa",
               }}
               className="w-8 h-8 rounded-full focus:outline-none"
             />
@@ -126,7 +130,7 @@ export function NameCard({ nameInfo }: NameCardProps) {
         </div>
       </div>
 
-      {/* Download Button */}
+      {/* Download Button (not captured) */}
       <div className="mt-6 flex justify-center">
         <button
           onClick={handleDownload}
