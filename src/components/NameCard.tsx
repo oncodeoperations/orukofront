@@ -1,4 +1,3 @@
-//// filepath: /C:/Users/Deen/Desktop/orukofront/src/components/NameCard.tsx
 import { useState, useRef } from "react";
 import { Volume2 } from "lucide-react";
 import { FaDownload } from "react-icons/fa";
