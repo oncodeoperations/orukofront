@@ -1,19 +1,14 @@
 {
     "redirects": [
       {
-        "source": "http://oruko-mi.com",
-        "destination": "https://oruko-mi.com",
-        "permanent": true
+        "source": "/",
+        "destination": "https://www.oruko-mi.com",
+        "statusCode": 308
       },
       {
-        "source": "http://www.oruko-mi.com",
-        "destination": "https://www.oruko-mi.com",
-        "permanent": true
-      },
-      {
-        "source": "oruko-mi.com",
-        "destination": "https://www.oruko-mi.com",
-        "permanent": true
+        "source": "/:path*",
+        "destination": "https://www.oruko-mi.com/:path*",
+        "statusCode": 308
       }
     ],
     "headers": [
